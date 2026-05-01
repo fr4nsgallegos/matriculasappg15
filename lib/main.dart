@@ -3,5 +3,5 @@ import 'package:matriculasappg15/examples/listile_page.dart';
 import 'package:matriculasappg15/pages/home_page.dart';
 
 void main() {
-  runApp(MaterialApp(home: ListilePage(), debugShowCheckedModeBanner: false));
+  runApp(MaterialApp(home: HomePage(), debugShowCheckedModeBanner: false));
 }

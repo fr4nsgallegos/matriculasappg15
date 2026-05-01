@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:matriculasappg15/examples/listile_page.dart';
 import 'package:matriculasappg15/pages/home_page.dart';
 
 void main() {
-  runApp(MaterialApp(home: HomePage(), debugShowCheckedModeBanner: false));
+  runApp(MaterialApp(home: ListilePage(), debugShowCheckedModeBanner: false));
 }

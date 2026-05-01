@@ -15,8 +15,19 @@ class _HomePageState extends State<HomePage> {
   List<Widget> listarElementos(List<MatriculaModel> matriculas) {
     return matriculas.map((matricula) {
       return ListTile(
-        title: Text(matricula.estudiante.nombre),
-        subtitle: Text(matricula.estudiante.apellido),
+        title: Text(
+          "${matricula.carrera.nombre} - ${matricula.carrera.duracion}",
+        ),
+        subtitle: Text(
+          "${matricula.estudiante.nombre}  ${matricula.estudiante.apellido}",
+        ),
+        trailing: IconButton(
+          onPressed: () {
+            matriculas.remove(matricula);
+            setState(() {});
+          },
+          icon: Icon(Icons.delete, color: Colors.red),
+        ),
       );
     }).toList();
   }
@@ -30,6 +41,8 @@ class _HomePageState extends State<HomePage> {
   );
 
   CarreraModel desarrollador = CarreraModel("Developer", "3 años");
+  CarreraModel chef = CarreraModel("Chef", "5 años");
+  CarreraModel civil = CarreraModel("Inge. civil", "5 años");
 
   PersonaModel estudiante1 = PersonaModel(
     nombre: "Felipe",
@@ -39,6 +52,44 @@ class _HomePageState extends State<HomePage> {
     nacionalidad: "peruano",
   );
 
+  PersonaModel estudiante2 = PersonaModel(
+    nombre: "María",
+    apellido: "Bellido",
+    direccion: "Av sur 123",
+    dni: "123456789",
+    nacionalidad: "Peruana",
+  );
+
+  Widget _buildCabeceraInstitucion(UniversidadModel institucion) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(tecsup.nombre),
+        IconButton(
+          onPressed: () {
+            tecsup.matriculas.add(
+              MatriculaModel(
+                fecha: "30/04/26",
+                hora: "20:15",
+                carrera: civil,
+                estudiante: estudiante2,
+              ),
+            );
+            setState(() {});
+          },
+          icon: Icon(Icons.add, color: Colors.blue),
+        ),
+        IconButton(
+          onPressed: () {
+            institucion.matriculas.clear();
+            setState(() {});
+          },
+          icon: Icon(Icons.cleaning_services, color: Colors.red),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,21 +97,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                tecsup.matriculas.add(
-                  MatriculaModel(
-                    fecha: "30/04/26",
-                    hora: "20:15",
-                    carrera: desarrollador,
-                    estudiante: estudiante1,
-                  ),
-                );
-                setState(() {});
-              },
-              child: Text("Agregar persona"),
-            ),
-            Text(tecsup.nombre),
+            _buildCabeceraInstitucion(tecsup),
             ...listarElementos(tecsup.matriculas),
           ],
         ),
